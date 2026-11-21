@@ -13,14 +13,14 @@ object ModConfig {
     const val PARCHMENT_MAPPING_VERSION = "2024.11.17"
     const val LOADER_VERSION_RANGE = "[1,)"
 
-    const val MOD_ID = "examplemod"
-    const val MOD_NAME = "Example Mod"
+    const val MOD_ID = "panini_vision"
+    const val MOD_NAME = "Panini Vision"
     const val MOD_LICENSE = "MIT"
-    const val MOD_VERSION = "2.6.0"
-    const val MOD_GROUP_ID = "io.github.mochi_753.examplemod"
-    const val MOD_DISPLAY_URL = "https://github.com/mochi-753/MDK-1.21.1-ModDevGradle"
-    const val MOD_AUTHORS = "Mochi753"
-    const val MOD_DESCRIPTION = "EXAMPLE MOD"
+    const val MOD_VERSION = "1.0.0"
+    const val MOD_GROUP_ID = "com.mause.panini"
+    const val MOD_DISPLAY_URL = ""
+    const val MOD_AUTHORS = "Panini Vision"
+    const val MOD_DESCRIPTION = "Panini projection post-processing and camera adjustments."
 
     const val CURSEFORGE_PROJECT_ID = "1576170"
     const val MODRINTH_PROJECT_ID = "MOXi22S6"
@@ -41,7 +41,6 @@ sourceSets.main.get().resources {
 repositories {
     mavenCentral()
 
-    /*
     exclusiveContent {
         forRepository {
             maven {
@@ -53,9 +52,6 @@ repositories {
             includeGroup("curse.maven")
         }
     }
-     */
-
-    /*
     exclusiveContent {
         forRepository {
             maven {
@@ -67,7 +63,6 @@ repositories {
             includeGroup("maven.modrinth")
         }
     }
-     */
 }
 
 base {
@@ -151,7 +146,11 @@ configurations {
     }
 }
 
+val libsTree = fileTree("libs") { include("*.jar") }
+
 dependencies {
+    implementation(libsTree)
+    "additionalRuntimeClasspath"(libsTree)
 }
 
 val generateModMetadata = tasks.register<ProcessResources>("generateModMetadata") {
@@ -221,4 +220,8 @@ val exportModMetadata = tasks.register("exportModMetadata") {
 
 tasks.named("assemble") {
     dependsOn(exportModMetadata)
+}
+
+tasks.named("createMinecraftArtifacts") {
+    dependsOn("generateModMetadata")
 }

@@ -1,0 +1,18 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.mause.panini.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [],
+  "client": [
+    "PaniniCameraMixin",
+    "PaniniGameRendererMixin",
+    "PaniniFirstPersonHandsMixin",
+    "AccessorPostChain",
+    "AccessorPostPass"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "refmapTarget": "panini_vision.refmap.json"
+}
